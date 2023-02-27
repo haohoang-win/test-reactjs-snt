@@ -4,8 +4,6 @@ const instance = axios.create({
     baseURL: 'https://api.petfinder.com/v2',
 });
 
-// instance.defaults.withCredentials = true;
-
 instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
 
 // Add a response interceptor

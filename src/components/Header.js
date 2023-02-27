@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { loginRedux, logoutRedux, unLoadingRedux, loadingRedux } from '../redux/slices/userSlice';
 import { ImSpinner10 } from 'react-icons/im'
+import logoApp from '../assets/images/logo192.png'
 
 const Header = (props) => {
     const navigate = useNavigate();
@@ -39,6 +40,10 @@ const Header = (props) => {
         <div className='header-container'>
             <div className='header-content'>
                 <ul>
+                    <li onClick={() => navigate('/')}>
+                        <div className='img-react'></div>
+                        <span className='app-name'>App</span>
+                    </li>
                     <li><span onClick={() => navigate('/')} className={location.pathname === '/' ? 'active' : ''}>Home</span></li>
                     <li><span onClick={() => navigate('/animals')} className={location.pathname === '/animals' ? 'active' : ''}>List animal</span></li>
                     <li className='login-btn'>

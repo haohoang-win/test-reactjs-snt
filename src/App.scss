@@ -42,6 +42,20 @@ body {
             margin-left: auto;
             margin-right: auto;
 
+            .img-react {
+                background-image: url('./assets/images/logo192.png');
+                background-size: 30px;
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                float: left;
+                margin-right: 8px;
+                color: white !important;
+                padding: 7px 0px;
+                background-origin: content-box;
+                cursor: pointer;
+            }
+
             ul {
                 list-style-type: none;
                 margin: 0;
@@ -61,6 +75,11 @@ body {
                 text-decoration: none;
                 cursor: pointer;
                 height: 20px;
+            }
+
+            .app-name {
+                float: right;
+                padding: 12px 14px 12px 0px;
             }
 
             li span:hover:not(.active):not(.not-highlight) {
