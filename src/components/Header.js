@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { loginRedux, logoutRedux, unLoadingRedux, loadingRedux } from '../redux/slices/userSlice';
 import { ImSpinner10 } from 'react-icons/im'
-import logoApp from '../assets/images/logo192.png'
 
 const Header = (props) => {
     const navigate = useNavigate();

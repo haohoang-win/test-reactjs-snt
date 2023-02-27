@@ -9,12 +9,12 @@ const Login = () => {
     return axios.post('/oauth2/token', dataLogin);
 }
 
-const getAllAnimal = (page) => {
-    return axios.get(`/animals?page=${page}`,);
+const getAllAnimal = (page, name) => {
+    return axios.get(`/animals?page=${page}&&${name ? `name=${name}` : ''}`);
 }
 
 const getAnimalById = (id) => {
-    return axios.get(`/animals/${id}`,);
+    return axios.get(`/animals/${id}`);
 }
 
 export { Login, getAllAnimal, getAnimalById }

@@ -8,6 +8,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { useDispatch } from "react-redux";
 import { logoutRedux } from "../redux/slices/userSlice";
 import ModalDetailAnimal from "./ModalDetailAnimal";
+import _ from 'lodash'
 
 const ListAnimal = (props) => {
     const navigate = useNavigate()
@@ -17,16 +18,31 @@ const ListAnimal = (props) => {
     const [totalPage, setTotalPage] = useState();
     const [dataAllAnimal, setDataAllAnimal] = useState([]);
     const [dataAnimal, setDataAnimal] = useState({});
-    const [showModal, setShowModal] = useState()
+    const [showModal, setShowModal] = useState();
+    const [inputName, setInputName] = useState();
 
     useEffect(() => {
         if (curPage) {
-            fetchListAnimals(curPage)
+            fetchListAnimals(curPage, inputName)
         }
     }, [curPage])
 
-    const fetchListAnimals = async (page) => {
-        let res = await getAllAnimal(page);
+    useEffect(() => {
+        if (inputName && dataAllAnimal.length === 0) {
+            toast.error(`Not found data with name ${inputName} in page: ${curPage}`)
+        }
+    }, [inputName])
+
+    const handleSearchName = _.debounce(async (name) => {
+        name = name.replace(/\s/g, '');
+        if (name.length > 2) {
+            await fetchListAnimals(curPage, name)
+            setInputName(name)
+        }
+    }, 300)
+
+    const fetchListAnimals = async (page, name) => {
+        let res = await getAllAnimal(page, name);
         if (res && res.animals && res.pagination) {
             setTotalPage(res.pagination.total_pages)
             setDataAllAnimal(res.animals)
@@ -42,8 +58,10 @@ const ListAnimal = (props) => {
     }
 
     const handlePageClick = (event) => {
-        setCurPage(+event.selected + 1);
-        setDataAllAnimal([])
+        if (+event.selected + 1 !== curPage) {
+            setCurPage(+event.selected + 1);
+            setDataAllAnimal([])
+        }
     }
 
     const handleShowModal = (animal) => {
@@ -61,6 +79,9 @@ const ListAnimal = (props) => {
                 <div className="title">
                     List Animal
                 </div>
+                <input placeholder="Search by name (at least 3 words)" className="input-search" onChange={(event) => {
+                    handleSearchName(event.target.value);
+                }} />
                 <div className="table-animal">
                     <div className="paginate-container">
                         <ReactPaginate
